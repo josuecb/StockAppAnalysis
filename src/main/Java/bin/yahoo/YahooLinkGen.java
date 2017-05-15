@@ -15,17 +15,17 @@ public class YahooLinkGen {
         type = "";
     }
 
-    public void setIntervalDate(int dd, int mm, int yyyy, boolean from) {
+    public void setIntervalDate(int mm, int dd, int yyyy, boolean from) {
         if (from) {
             if (this.interval.isEmpty())
-                this.interval = "&a=" + dd + "&b=" + mm + "&c=" + yyyy;
+                this.interval = "&a=" + mm + "&b=" + dd + "&c=" + yyyy;
             else
-                this.interval += "&a=" + dd + "&b=" + mm + "&c=" + yyyy;
+                this.interval += "&a=" + mm + "&b=" + dd + "&c=" + yyyy;
         } else {
             if (this.interval.isEmpty())
-                this.interval = "&d=" + dd + "&e=" + mm + "&f=" + yyyy;
+                this.interval = "&d=" + mm + "&e=" + dd + "&f=" + yyyy;
             else
-                this.interval += "&d=" + dd + "&e=" + mm + "&f=" + yyyy;
+                this.interval += "&d=" + mm + "&e=" + dd + "&f=" + yyyy;
 
         }
     }
@@ -44,6 +44,6 @@ public class YahooLinkGen {
         if (this.type.isEmpty())
             this.type += "&g=d";
 
-        return yahooLinkChar + this.companyName + interval + this.type +  "&ignore=.csv";
+        return yahooLinkChar + this.companyName + interval + this.type + "&ignore=.csv";
     }
 }
