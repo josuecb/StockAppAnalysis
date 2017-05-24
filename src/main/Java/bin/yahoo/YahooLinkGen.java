@@ -46,7 +46,7 @@ public class YahooLinkGen {
         String someDate = mm + "-" + dd + "-" + yyyy;
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
         Date date = sdf.parse(someDate);
-        System.out.println(date.getTime());
+//        System.out.println(date.getTime());
 
         long milliseconds = date.getTime() / 1000;
         if (from) {

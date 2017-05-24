@@ -1,12 +1,12 @@
-import bin.FileDownloader;
+import bin.analysis.Element;
+import bin.analysis.Row;
+import bin.analysis.Table;
 import bin.download.YahooFileDownloader;
 import bin.yahoo.YahooLinkGen;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Josue on 5/13/2017.
@@ -23,10 +23,14 @@ public class Main {
 //
         YahooFileDownloader yd = new YahooFileDownloader(y);
 
-        try {
-            yd.downloadFile(testFileAbsolutePath);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Table t = new Table();
+        List<String> rows = Arrays.asList(yd.getString().split("\n"));
+        for (String r : rows) {
+            Row mr = new Row();
+            for (String e : r.split(","))
+                mr.add(new Element(e));
+
+            t.add(mr);
         }
 //        Stock a = new Stock("JPM", 91.309998, 90.68);
 //

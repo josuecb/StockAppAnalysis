@@ -17,7 +17,7 @@ public class YahooFileDownloader {
         c = new HTTPConnection(Yahoo.YAHOO_LINK, Connection.Method.GET);
         try {
             Connection.Response r = c.connect();
-            System.out.println(r.cookies().toString());
+//            System.out.println(r.cookies().toString());
             c.setUrl(Yahoo.YAHOO_CRUMB_LINK);
             c.setCookies(r.cookies());
             Connection.Response res = c.connect();
@@ -39,5 +39,20 @@ public class YahooFileDownloader {
         FileOutputStream out = (new FileOutputStream(new java.io.File(fileName)));
         out.write(res.bodyAsBytes());  // resultImageResponse.body() is where the image's contents are.
         out.close();
+    }
+
+    public String getString() {
+        this.yahooLinkGen.setScrumb(this.scrumb);
+
+        try {
+            c.setUrl(this.yahooLinkGen.getLink());
+
+            c.ignoreContentType(true);
+            Connection.Response res = c.connect();
+            return res.body();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
