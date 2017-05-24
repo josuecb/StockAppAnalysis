@@ -15,7 +15,6 @@ public class Main {
     public static void main(String[] args) {
         String testFileAbsolutePath = System.getProperty("user.dir") + File.separator + "test.csv";
 
-
         YahooLinkGen y = new YahooLinkGen("JPM");
 ////        from interval
         y.setIntervalDate(2, 1, 2017, true);
