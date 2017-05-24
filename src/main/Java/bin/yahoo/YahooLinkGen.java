@@ -4,7 +4,6 @@ package bin.yahoo;
  * Created by Josue on 5/13/2017.
  */
 public class YahooLinkGen {
-    protected String yahooLinkChar = "https://ichart.yahoo.com/table.csv?s=";
     protected String companyName;
     protected String interval;
     protected String type;
@@ -44,6 +43,6 @@ public class YahooLinkGen {
         if (this.type.isEmpty())
             this.type += "&g=d";
 
-        return yahooLinkChar + this.companyName + interval + this.type + "&ignore=.csv";
+        return YahooLinks.YAHOO_DOWNLOAD_LINK + this.companyName + interval + this.type + "&ignore=.csv";
     }
 }

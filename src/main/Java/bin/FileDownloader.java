@@ -15,7 +15,6 @@ public class FileDownloader {
 
     public void start(String cvsFileName) throws IOException {
         System.out.println("Starting to download...");
-        String fileName = cvsFileName + ".csv"; //The file that will be saved on your computer
         URL link = new URL(this.webURL); //The file that you want to download
 
         //Code to download
@@ -30,7 +29,7 @@ public class FileDownloader {
         in.close();
         byte[] response = out.toByteArray();
 
-        FileOutputStream fos = new FileOutputStream(fileName);
+        FileOutputStream fos = new FileOutputStream(cvsFileName);
         fos.write(response);
         fos.flush();
         fos.close();
