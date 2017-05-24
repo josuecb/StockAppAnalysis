@@ -14,4 +14,13 @@ public class Row extends ArrayList<Element> {
         }
         return String.valueOf(r);
     }
+
+    @Override
+    public Element get(int index) {
+        return super.get(index);
+    }
+
+    public String get(QuoteRequest index) {
+        return super.get(index.getTag()).getData();
+    }
 }

@@ -1,12 +1,12 @@
-import bin.analysis.Element;
+import bin.Helpers;
+import bin.analysis.QuoteRequest;
 import bin.analysis.Row;
 import bin.analysis.Table;
 import bin.download.YahooFileDownloader;
 import bin.yahoo.YahooLinkGen;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
+import java.text.ParseException;
 
 /**
  * Created by Josue on 5/13/2017.
@@ -23,15 +23,13 @@ public class Main {
 //
         YahooFileDownloader yd = new YahooFileDownloader(y);
 
-        Table t = new Table();
-        List<String> rows = Arrays.asList(yd.getString().split("\n"));
-        for (String r : rows) {
-            Row mr = new Row();
-            for (String e : r.split(","))
-                mr.add(new Element(e));
+        Table t = new Table(yd.getString());
+        Row dateData = t.getDataByDate(22, 3, 2017);
+        dateData.get(QuoteRequest.CLOSE);
 
-            t.add(mr);
-        }
+        System.out.println((t.getFirstMonday() == null ? "No found" : t.getFirstMonday().toString()));
+
+
 //        Stock a = new Stock("JPM", 91.309998, 90.68);
 //
 //        a.display();

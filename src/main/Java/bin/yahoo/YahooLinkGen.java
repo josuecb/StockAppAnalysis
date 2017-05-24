@@ -42,6 +42,7 @@ public class YahooLinkGen {
     }
 
 
+
     private void setIntervalV2(int mm, int dd, int yyyy, boolean from) throws ParseException {
         String someDate = mm + "-" + dd + "-" + yyyy;
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
