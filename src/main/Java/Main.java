@@ -3,6 +3,9 @@ import bin.download.YahooFileDownloader;
 import bin.yahoo.YahooLinkGen;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -12,7 +15,16 @@ public class Main {
     public static void main(String[] args) {
         String testFileAbsolutePath = System.getProperty("user.dir") + File.separator + "test.csv";
 
-        YahooFileDownloader y = new YahooFileDownloader();
+//        YahooFileDownloader y = new YahooFileDownloader();
+        String someDate = "10-29-2017";
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(someDate);
+            System.out.println(date.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 //        YahooLinkGen y = new YahooLinkGen("JPM");
 ////        from interval
 //        y.setIntervalDate(2, 1, 2017, true);
