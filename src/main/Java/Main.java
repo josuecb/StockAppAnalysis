@@ -15,34 +15,20 @@ public class Main {
     public static void main(String[] args) {
         String testFileAbsolutePath = System.getProperty("user.dir") + File.separator + "test.csv";
 
-//        YahooFileDownloader y = new YahooFileDownloader();
-        String someDate = "10-29-2017";
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-        Date date = null;
+
+        YahooLinkGen y = new YahooLinkGen("JPM");
+////        from interval
+        y.setIntervalDate(2, 1, 2017, true);
+////        to interval
+        y.setIntervalDate(4, 1, 2017, false);
+//
+        YahooFileDownloader yd = new YahooFileDownloader(y);
+
         try {
-            date = sdf.parse(someDate);
-            System.out.println(date.getTime());
-        } catch (ParseException e) {
+            yd.downloadFile(testFileAbsolutePath);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-//        YahooLinkGen y = new YahooLinkGen("JPM");
-////        from interval
-//        y.setIntervalDate(2, 1, 2017, true);
-////        to interval
-//        y.setIntervalDate(4, 1, 2017, false);
-//
-//
-//        FileDownloader d;
-//        try {
-//            System.out.println(y.getLink());
-//
-//            d = new FileDownloader(y.getLink());
-//            d.start(testFileAbsolutePath);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
 //        Stock a = new Stock("JPM", 91.309998, 90.68);
 //
 //        a.display();
