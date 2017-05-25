@@ -3,19 +3,20 @@ package bin.analysis;
 import bin.Helpers;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by Josue on 5/24/2017.
  */
 public class Table extends ArrayList<Row> {
+    private String companyName;
 
     public Table() {
         super();
     }
 
-    public Table(String tableString) {
+    public Table(String companyName, String tableString) {
+        this.companyName = companyName;
         List<String> rows = Arrays.asList(tableString.split("\n"));
         for (String r : rows) {
             Row mr = new Row();
@@ -28,7 +29,7 @@ public class Table extends ArrayList<Row> {
 
     @Override
     public boolean add(Row elements) {
-        System.out.println(elements.toString());
+//        System.out.println(elements.toString());
         return super.add(elements);
     }
 
@@ -53,7 +54,7 @@ public class Table extends ArrayList<Row> {
 
             try {
                 int day = Helpers.dateToDayOfWeek(dateData.get(QuoteRequest.DATE));
-                System.out.println(day);
+//                System.out.println(day);
                 if (day == WeekDays.MONDAY.getTag())
                     return dateData;
             } catch (ParseException e) {
@@ -64,4 +65,33 @@ public class Table extends ArrayList<Row> {
         return null;
     }
 
+    public Row getDayAfter(WeekDays dayOfWeek, String someDate) {
+        boolean flagStart = false;
+        for (int i = 1; i < this.size(); i++) {
+            Row dateData = this.get(i);
+
+            if (dateData.get(QuoteRequest.DATE).equals(someDate))
+                flagStart = true;
+
+            if (flagStart) {
+                try {
+                    int day = Helpers.dateToDayOfWeek(dateData.get(QuoteRequest.DATE));
+                    if (day == dayOfWeek.getTag())
+                        return dateData;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 }

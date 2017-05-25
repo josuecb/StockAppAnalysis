@@ -1,18 +1,42 @@
 package bin.analysis;
 
+
 /**
  * Created by Josue on 5/15/2017.
  */
 public class Stock {
     String stockName;
     double monOpen;
-    double friClose;
+    double friOpen;
     double investment;
+
+    private String monDate, friDate;
 
     public Stock(String name, double mon, double fri) {
         this.stockName = name;
+//        this.monOpen = Math.floor(mon * 100) / 100;
         this.monOpen = mon;
-        this.friClose = fri;
+        this.friOpen = fri;
+
+        this.investment = 0;
+//        System.out.println("MON OPEN: " + mon);
+//        System.out.println("FRI OPEN: " + fri);
+    }
+
+    public String getMonDate() {
+        return monDate;
+    }
+
+    public void setMonDate(String monDate) {
+        this.monDate = monDate;
+    }
+
+    public String getFriDate() {
+        return friDate;
+    }
+
+    public void setFriDate(String friDate) {
+        this.friDate = friDate;
     }
 
     public void setInvestment(double investment) {
@@ -20,7 +44,7 @@ public class Stock {
     }
 
     public double prof_loss() {
-        return this.monOpen - this.friClose;
+        return Math.abs(this.monOpen - this.friOpen);
     }
 
     public double pct_profit() {
@@ -32,11 +56,15 @@ public class Stock {
     }
 
     public double remaining_balance() {
-        return this.investment - (this.actual_profit() / this.prof_loss());
+        return this.investment + actual_profit();
     }
 
     public void display() {
-        System.out.println(this.prof_loss());
+        System.out.println("----Company " + this.stockName + " results----");
+        System.out.println("Profit Loss: " + this.prof_loss());
+        System.out.println("Percentage Loss: " + this.pct_profit());
+        System.out.println("Actual profit: " + this.actual_profit());
+        System.out.println("Remaining balance: " + this.remaining_balance());
     }
 
 }

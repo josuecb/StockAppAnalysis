@@ -1,12 +1,13 @@
 import bin.Helpers;
-import bin.analysis.QuoteRequest;
-import bin.analysis.Row;
-import bin.analysis.Table;
+import bin.analysis.*;
 import bin.download.YahooFileDownloader;
 import bin.yahoo.YahooLinkGen;
 
-import java.io.File;
-import java.text.ParseException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 
 /**
  * Created by Josue on 5/13/2017.
@@ -14,24 +15,40 @@ import java.text.ParseException;
 public class Main {
     public static void main(String[] args) {
         String testFileAbsolutePath = System.getProperty("user.dir") + File.separator + "test.csv";
+        String[] comapnies = {
+                "GOOG",
+                "AAPL",
+                "AMZN",
+                "NFLX",
+                "DIS",
+                "NVDA",
+                "WMT",
+                "VZ",
+                "NKE",
+                "MCD"
+        };
 
-        YahooLinkGen y = new YahooLinkGen("JPM");
+        ArrayList<Table> tables = new ArrayList<>();
+
+        // Download data from all companies
+        for (String company : comapnies) {
+            System.out.println("Downloading " + company + " table...");
+            YahooLinkGen y = new YahooLinkGen(company);
 ////        from interval
-        y.setIntervalDate(2, 1, 2017, true);
+            y.setIntervalDate(3, 13, 2017, true);
 ////        to interval
-        y.setIntervalDate(4, 1, 2017, false);
-//
-        YahooFileDownloader yd = new YahooFileDownloader(y);
+            y.setIntervalDate(5, 24, 2017, false);
+////
+            YahooFileDownloader yd = new YahooFileDownloader(y);
+            tables.add(new Table(company, yd.getString()));
+        }
 
-        Table t = new Table(yd.getString());
-        Row dateData = t.getDataByDate(22, 3, 2017);
-        dateData.get(QuoteRequest.CLOSE);
-
-        System.out.println((t.getFirstMonday() == null ? "No found" : t.getFirstMonday().toString()));
-
-
-//        Stock a = new Stock("JPM", 91.309998, 90.68);
-//
-//        a.display();
+        String res = Helpers.getResults(tables, null, 15000, "");
+        try {
+            Files.write(Paths.get(testFileAbsolutePath), res.getBytes(), StandardOpenOption.CREATE);
+            System.out.println(res);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
