@@ -44,7 +44,7 @@ public class Stock {
     }
 
     public double prof_loss() {
-        return Math.abs(this.monOpen - this.friOpen);
+        return this.friOpen - this.monOpen;
     }
 
     public double pct_profit() {
